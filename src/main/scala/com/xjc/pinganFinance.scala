@@ -63,8 +63,12 @@ object pinganFinance {
           }
         }, { (x, y) =>
           {
-            x ++= y
-            x
+            val key_set = x.keys ++ y.keys
+            var result_map = Map[String, Set[String]]()
+            for (i <- key_set) {
+              result_map.put(i, x.getOrElse(i, Set[String]()) ++ y.getOrElse(i, Set[String]()))
+            }
+            result_map
           }
         }).map {
           k =>
